@@ -4,5 +4,8 @@
   "author": "Andrei Besleaga",
   "dependencies": {
     "openzeppelin-solidity": "^4.5.0"
+  },
+  "devDependencies": {
+    "@truffle/hdwallet-provider": "^2.0.4"
   }
 }
