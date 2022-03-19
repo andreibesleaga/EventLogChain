@@ -3,7 +3,8 @@ Ethereum Blockchain Remote Events Logger
 
 Simple experimental lib to log small remote data (event/type/message) to ethereum blockchain, per client
 
-- Includes smartcontracts with log mechanism (events emitting and currency token) to be deployed on a ethereum blockchain network
+- Includes smartcontracts with log mechanism (events emitting) to be deployed on a ethereum blockchain network
+- Incudes custom ERC20 token - crypto currency token ( LOGC )
 - Includes web3 javascript example code to interact remotely with EventLogChain smartcontracts (read/write/search/subscribe event data in blockchain logs)
 - Includes php example code to interact with the EventLogChain smartcontracts (read/write/search messages in blockchain logs)
 
@@ -12,7 +13,7 @@ contracts (to be deployed on blockchain) :
     - LogChainToken.sol - ERC20 new token implementation (extending openzeppelin)
     - Migration.sol - truffle helpers
 
-js (to be used on backend/frontend web3 apps rmeotely tro interact with the blockchain functions) :
+js (to be used on backend/frontend web3 apps remotely to interact with the blockchain functions) :
     - index.js - to read from event logs
     - sendToLog.js - to write to logs
     - subscribe.js - subscribe to be notified by any changes in the logs when a new log event
