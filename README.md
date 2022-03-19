@@ -13,7 +13,7 @@ contracts (to be deployed on blockchain) :
     - LogChainToken.sol - ERC20 new token implementation (extending openzeppelin)
     - Migration.sol - truffle helpers
 
-js (to be used on backend/frontend web3 apps rmeotely tro interact with the blockchain functions) :
+js (to be used on backend/frontend web3 apps remotely to interact with the blockchain functions) :
     - index.js - to read from event logs
     - sendToLog.js - to write to logs
     - subscribe.js - subscribe to be notified by any changes in the logs when a new log event
