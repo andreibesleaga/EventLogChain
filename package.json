@@ -1,0 +1,8 @@
+{
+  "name": "event-log-chain",
+  "version": "1.0.0",
+  "author": "Andrei Besleaga",
+  "dependencies": {
+    "openzeppelin-solidity": "^4.5.0"
+  }
+}
