@@ -1,7 +1,9 @@
 # EventLogChain
 Ethereum Blockchain Remote Events Logger
 
-Simple experimental lib to log small remote data (event/type/message) to ethereum blockchain, per client
+( work in progress) 
+
+Simple experimental lib to log small remote data (event/timestamp/type/action) to ethereum blockchain, per client
 
 - Includes smartcontracts with log mechanism (events emitting) to be deployed on a ethereum blockchain network
 - Incudes custom ERC20 token - crypto currency token ( LOGC )
