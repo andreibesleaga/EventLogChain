@@ -7,6 +7,7 @@ import Web3 from 'web3';
 
 
 const web3 = new Web3(YOUR_RPC_ENDPOINT);
+
 const ABI = YOUR_ABI;
 const CONTRACT_ADDRESS = YOUR_CONTRACT_ADDRESS;
 
@@ -19,7 +20,7 @@ let options = {
     entryType: [],           // filter only by entryType set by logger
 };
 
-let subscription = web3.eth.subscribe('logs', options,(err,event) => {
+let subscription = web3.eth.subscribe('logs', options, (err,event) => {
     if (!err)
     console.log(event)
 });

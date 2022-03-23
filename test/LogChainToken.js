@@ -1,9 +1,9 @@
 var LogChainToken = artifacts.require("LogChainToken.sol");
 
 contract('LogChainToken', async accounts => {
-  it("should assert true", async function(done) {
+  it("should call a function that returns the token symbol after deployment", async () => {
     const LogChainTokenInstance = await LogChainToken.deployed();
-    assert.isTrue(true);
-    done();
+    const symbol = await LogChainTokenInstance.symbol.call();
+    assert.equal(symbol, 'LOGC', "LogChainToken symbol got : LOGC");
   });
 });

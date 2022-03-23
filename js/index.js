@@ -7,6 +7,7 @@ import Web3 from 'web3';
 
 
 const web3 = new Web3(YOUR_RPC_ENDPOINT);
+
 const ABI = YOUR_ABI;
 const CONTRACT_ADDRESS = YOUR_CONTRACT_ADDRESS;
 

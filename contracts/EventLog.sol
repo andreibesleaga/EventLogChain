@@ -13,14 +13,14 @@ contract EventLog {
 
     event logEntry(
         address indexed sender,
-        uint256 indexed timestamp,
-        bytes32 indexed entryType,
-        bytes32 entry
+        uint256 indexed logTimestamp,
+        bytes8 indexed logEntryType,
+        bytes32 logEntryMsg
     );
 
-    function log( uint256 timestamp, bytes32 entryType, bytes32 entry ) public returns(string memory) {
-        emit logEntry(msg.sender, timestamp, entryType, entry);
-        // return string(abi.encodePacked(msg.sender, timestamp, entryType, entry));
+    function log( uint256 logTimestamp, bytes8 logEntryType, bytes32 logEntryMsg ) public returns(string memory) {
+        emit logEntry(msg.sender, logTimestamp, logEntryType, logEntryMsg);
+        // return string(abi.encodePacked(msg.sender, logTimestamp, logEntryType, logEntryMsg));
         return 'ok';
     }
 
