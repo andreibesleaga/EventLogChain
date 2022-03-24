@@ -11,6 +11,9 @@ pragma solidity ^0.8.7;
 
 contract EventLog {
 
+    address owner;
+    bool isStopped;
+    
     event logEntry(
         address indexed sender,
         uint256 indexed logTimestamp,
@@ -18,9 +21,31 @@ contract EventLog {
         bytes32 logEntryMsg
     );
 
-    function log( uint256 logTimestamp, bytes8 logEntryType, bytes32 logEntryMsg ) public returns(string memory) {
+    constructor() {
+        owner = msg.sender;
+        isStopped = false;
+    }
+
+    modifier onlyOwner {
+        require(msg.sender == owner);
+        _;
+    }    
+
+    modifier isNotStopped {
+        require(!isStopped);
+        _;
+    }    
+
+    function stop() public onlyOwner {
+        isStopped = true;
+    }
+
+    function restart() public onlyOwner {
+        isStopped = false;
+    }
+
+    function log( uint256 logTimestamp, bytes8 logEntryType, bytes32 logEntryMsg ) public isNotStopped {
         emit logEntry(msg.sender, logTimestamp, logEntryType, logEntryMsg);
-        return 'log called';
     }
 
 }

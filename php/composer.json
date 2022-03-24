@@ -1,4 +1,5 @@
 {
+    "name": "abn/event-log-chain",
     "require": {
         "sc0vu/web3.php": "dev-master"
     }
