@@ -11,7 +11,7 @@ contract('EventLog', async accounts => {
     let resultSaveLog = await contractInstance.log.call(timestamp, web3.utils.asciiToHex(entryType), web3.utils.asciiToHex((entry)));
     let resultGetLog = await contractInstance.getPastEvents.call('allEvents', { fromBlock: 1});
     
-    assert.equal(resultSaveLog, "ok");
+    assert.equal(resultSaveLog, "log called");
     expect(resultGetLog).to.not.be.undefined;
   });
 });

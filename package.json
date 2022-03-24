@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "author": "Andrei Besleaga",
   "dependencies": {
-    "openzeppelin-solidity": "^4.5.0"
+    "openzeppelin-solidity": "^4.5.0",
+    "web3": "^1.7.1"
   },
   "devDependencies": {
     "@truffle/hdwallet-provider": "^2.0.4"

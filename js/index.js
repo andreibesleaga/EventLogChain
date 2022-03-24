@@ -5,24 +5,22 @@
 
 import Web3 from 'web3';
 
-
 const web3 = new Web3(YOUR_RPC_ENDPOINT);
-
 const ABI = YOUR_ABI;
 const CONTRACT_ADDRESS = YOUR_CONTRACT_ADDRESS;
 
-const EventLog = new Web3.Contract(ABI, CONTRACT_ADDRESS);
+const EventLog = new web3.eth.Contract(ABI, CONTRACT_ADDRESS);
 
 // filters
 let options = {
     filter: {
-        entryType: [1]    // filter by entryType
+        //entryType: [1]    // filter by entryType
     },
     fromBlock: 0, // number || "earliest" || "pending" || "latest"
-    toBlock: 'latest'
+    //toBlock: 'latest'
 };
 
-EventLog.getPastEvents('logs', options)
+EventLog.getPastEvents('logEntry', options)
     .then(results => console.log(results))
     .catch(err => { throw err});
 

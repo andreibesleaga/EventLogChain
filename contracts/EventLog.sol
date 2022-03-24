@@ -20,8 +20,7 @@ contract EventLog {
 
     function log( uint256 logTimestamp, bytes8 logEntryType, bytes32 logEntryMsg ) public returns(string memory) {
         emit logEntry(msg.sender, logTimestamp, logEntryType, logEntryMsg);
-        // return string(abi.encodePacked(msg.sender, logTimestamp, logEntryType, logEntryMsg));
-        return 'ok';
+        return 'log called';
     }
 
 }
