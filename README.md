@@ -12,8 +12,8 @@ EventLogChain is a decentralized event logging system built on Ethereum that all
 - **Pausable Contract**: Owner can pause/unpause logging functionality
 - **OpenZeppelin Security**: Uses battle-tested Pausable and Ownable contracts
 - **ERC20 Token**: LogChainToken (LOGC) with mint/burn capabilities
-- **Comprehensive Tests**: 33 passing tests with >90% coverage
-- **Modern Stack**: Solidity ^0.8.20, Web3@4.x, Truffle@5.x
+- **Comprehensive Tests**: 75 tests passing (43 JS + 32 PHP) with >90% coverage
+- **Modern Stack**: Solidity ^0.8.20, Web3@4.x, Truffle@5.x, PHPUnit@9.x
 
 ## Installation
 
@@ -195,6 +195,8 @@ npm run format
 
 ### Test Coverage
 
+**Total: 75 tests (72 passing + 3 skipped)**
+
 **JavaScript/Solidity Tests:**
 - 43 tests passing
 - EventLog: Deployment, logging, pause/unpause, ownership, gas consumption
@@ -207,11 +209,10 @@ cd php
 composer test
 ```
 
-- 11 tests passing
-- Contract connection and validation
-- ABI verification
-- Data formatting (hex conversion, padding)
-- Utility functions
+- **32 tests**: 29 passing, 3 skipped (web3.php v0.3 limitations)
+- **Unit Tests (11)**: Contract connection, ABI verification, data formatting, utilities
+- **EventLog Integration (8)**: Log retrieval, data structure, blockchain interaction
+- **Token Integration (13)**: ERC20 metadata, supply queries, events, ABI validation
 
 ## Security
 
