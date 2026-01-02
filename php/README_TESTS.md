@@ -39,6 +39,8 @@ composer test
 
 The test suite includes:
 
+### Unit Tests (EventLogContractTest.php)
+
 1. **Connection Tests** (2 tests)
    - Contract connection validation
    - Block number retrieval
@@ -58,16 +60,29 @@ The test suite includes:
    - Contract method existence
    - Transaction preparation
 
-**Total: 11 tests**
+### Integration Tests (EventLogIntegrationTest.php)
+
+1. **Blockchain Interaction Tests** (8 tests)
+   - Contract instance creation
+   - Past log retrieval from blockchain
+   - Log data structure validation
+   - Hex to string conversion
+   - Bytes8/Bytes32 padding
+   - Block number retrieval
+   - Network ID verification
+
+**Total: 19 tests (11 unit + 8 integration)**
 
 ## Test Structure
 
 ```
 php/
 ├── tests/
-│   └── EventLogContractTest.php   # Main test suite
-├── phpunit.xml                     # PHPUnit configuration
-└── composer.json                   # Includes test script
+│   ├── EventLogContractTest.php      # Unit tests (11 tests)
+│   ├── EventLogIntegrationTest.php   # EventLog integration (8 tests)
+│   └── TokenIntegrationTest.php      # Token integration (13 tests)
+├── phpunit.xml                        # PHPUnit configuration
+└── composer.json                      # Includes test script
 ```
 
 ## Prerequisites for Integration Tests
