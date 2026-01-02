@@ -1,25 +1,50 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.7;
+pragma solidity ^0.8.20;
 
-/*
-* @title Solidity EventLogChain
-* @author Andrei Besleaga Nicolae
-* @date 2022
-* @notice A simple smart contract for a new ERC20 token to be used in the EventLogChain
-*
-*/
+import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
 
-import "../node_modules/openzeppelin-solidity/contracts/token/ERC20/ERC20.sol";
+/**
+ * @title LogChainToken
+ * @author Andrei Besleaga Nicolae
+ * @notice ERC20 token for use in the EventLogChain ecosystem
+ * @dev Extends OpenZeppelin's ERC20 implementation
+ */
+contract LogChainToken is ERC20, Ownable {
+    uint8 private constant DECIMALS = 2;
+    uint256 public constant INITIAL_SUPPLY = 1_000_000_000_000; // 1 trillion (with underscores for readability)
 
-contract LogChainToken is ERC20 {
-
-    string public _name = "LogChainToken";
-    string public _symbol = "LOGC";
-    uint8 public _decimals = 2;
-    uint public INITIAL_SUPPLY = 1000000000000; // 1000 billions
-
-    constructor() ERC20(_name, _symbol) {
+    /**
+     * @notice Creates the LogChainToken with initial supply
+     * @dev Mints initial supply to deployer
+     */
+    constructor() ERC20("LogChainToken", "LOGC") Ownable(msg.sender) {
         _mint(msg.sender, INITIAL_SUPPLY * (10 ** decimals()));
     }
 
+    /**
+     * @notice Returns the number of decimals
+     * @return Number of decimal places (2)
+     */
+    function decimals() public pure override returns (uint8) {
+        return DECIMALS;
+    }
+
+    /**
+     * @notice Allows owner to mint additional tokens if needed
+     * @param to Address to receive minted tokens
+     * @param amount Amount of tokens to mint
+     */
+    function mint(address to, uint256 amount) external onlyOwner {
+        require(to != address(0), "LogChainToken: mint to zero address");
+        _mint(to, amount);
+    }
+
+    /**
+     * @notice Allows token holders to burn their tokens
+     * @param amount Amount of tokens to burn
+     */
+    function burn(uint256 amount) external {
+        _burn(msg.sender, amount);
+    }
 }

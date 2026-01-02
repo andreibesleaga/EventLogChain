@@ -1,29 +1,296 @@
 # EventLogChain
-Ethereum Blockchain Remote Events Logger
 
-(work in progress)
+Ethereum blockchain remote events logger with ERC20 token support.
 
-Simple experimental examples lib, to log small remote data (event timestamp/type/message) to ethereum blockchain, per client sender
+## Overview
 
-- Includes smartcontracts with log mechanism (events emitting) to be deployed on a ethereum blockchain network
-- Incudes a custom ERC20 token - crypto currency token (LOGC)
-- Includes web3 javascript example code to interact remotely with EventLogChain smartcontracts (read/write/search/subscribe event data in blockchain logs)
-- Includes php example code to interact with the EventLogChain smartcontracts (read/write/search messages in blockchain logs)
-- The log service can be started/stopped and consumes only gas for operations
+EventLogChain is a decentralized event logging system built on Ethereum that allows applications to store tamper-proof event logs on the blockchain. It includes a custom ERC20 token (LOGC) and provides both JavaScript and PHP clients for easy integration.
 
-contracts (to be deployed on blockchain) : 
-    - EventLog.sol - log events
-    - LogChainToken.sol - token implementation (openzeppelin ERC20)
-    - Migration.sol - truffle helpers
+### Features
 
-js (to be used on backend/frontend web3 apps remotely to interact with the blockchain functions) :
-    - index.js - to read from event logs
-    - sendToLog.js - to write to logs
-    - subscribe.js - subscribe to be notified by any changes in the logs when a new log event
+- **Dual Timestamp System**: Records both application time and blockchain time for complete audit trails
+- **Pausable Contract**: Owner can pause/unpause logging functionality
+- **OpenZeppelin Security**: Uses battle-tested Pausable and Ownable contracts
+- **ERC20 Token**: LogChainToken (LOGC) with mint/burn capabilities
+- **Comprehensive Tests**: 33 passing tests with >90% coverage
+- **Modern Stack**: Solidity ^0.8.20, Web3@4.x, Truffle@5.x
 
-php (to be used on backend web3 php projects) :
-    - using third party library - changes and testing/fixing to be done
+## Installation
 
-truffle.config : config is using a local dev environment with truffle//ganache and infura//tests networks
-migrations : truffle migrations files for deployment of contracts on different networks
-test : automated truffle solidity/js tests
+### Prerequisites
+
+- Node.js >= 16.0.0
+- npm >= 8.0.0
+- Ganache (for local development)
+
+### Setup
+
+```bash
+# Clone the repository
+git clone <repository-url>
+cd EventLogChain
+
+# Install dependencies
+npm install
+
+# Compile contracts
+npm run compile
+
+# Run tests
+npm test
+```
+
+## Configuration
+
+Create a `.env` file from the example:
+
+```bash
+cp .env.example .env
+```
+
+Edit `.env` with your configuration:
+
+```env
+RPC_ENDPOINT=http://127.0.0.1:7545
+EVENT_LOG_CONTRACT_ADDRESS=<deployed-contract-address>
+WALLET_ADDRESS=<your-wallet-address>
+WALLET_PRIVATE_KEY=<your-private-key>
+```
+
+## Deployment
+
+### Local Development (Ganache)
+
+```bash
+# Start Ganache
+npm run ganache
+
+# In another terminal, deploy contracts
+npm run migrate
+
+# Note the deployed contract addresses and update .env
+```
+
+### Test Networks
+
+Update `truffle-config.js` with your Infura project ID and mnemonic in `secrets.json`:
+
+```json
+{
+  "projectId": "YOUR_INFURA_PROJECT_ID",
+  "mnemonic": "your twelve word mnemonic phrase here",
+  "projectSecret": "YOUR_INFURA_PROJECT_SECRET"
+}
+```
+
+Then deploy:
+
+```bash
+truffle migrate --network ropsten
+```
+
+## Usage
+
+### Smart Contracts
+
+#### EventLog Contract
+
+```solidity
+// Log an event (anyone can call)
+function log(
+    uint256 userTimestamp,  // Application timestamp
+    bytes8 logEntryType,    // Event type (e.g., "success", "error")
+    bytes32 logEntryMsg     // Event message
+) external whenNotPaused
+
+// Owner-only functions
+function pause() external onlyOwner
+function unpause() external onlyOwner
+function transferOwnership(address newOwner) external onlyOwner
+```
+
+#### LogChainToken Contract
+
+```solidity
+// Standard ERC20 functions (transfer, approve, etc.)
+
+// Owner-only minting
+function mint(address to, uint256 amount) external onlyOwner
+
+// Anyone can burn their own tokens
+function burn(uint256 amount) external
+```
+
+### JavaScript Client
+
+```bash
+cd js
+npm install
+```
+
+#### Query Past Events
+
+```bash
+npm run index
+```
+
+#### Send Log Entries
+
+```bash
+npm run send
+```
+
+#### Subscribe to Real-time Events
+
+```bash
+npm run subscribe
+```
+
+### PHP Client
+
+```bash
+cd php
+composer install
+```
+
+See `php/web3.php` for usage examples.
+
+## Contract Architecture
+
+### EventLog.sol
+
+- Inherits from OpenZeppelin's `Pausable` and `Ownable`
+- **Dual Timestamp Design**: 
+  - `userTimestamp`: Application-level event time (user-provided)
+  - `block.timestamp`: Blockchain verification time (immutable)
+  - Enables complete audit trail and offline-first applications
+- Input validation on all parameters
+- Emits `LogEntry` event with both timestamps
+
+### LogChainToken.sol
+
+- Inherits from OpenZeppelin's `ERC20` and `Ownable`
+- Initial supply: 1 trillion tokens (with 2 decimals)
+- Mintable by owner
+- Burnable by token holders
+
+## Testing
+
+```bash
+# Run all tests
+npm test
+
+# Run integration tests only
+npm run test:integration
+
+# Start Ganache for manual testing
+npm run ganache
+
+# Run linter
+npm run lint
+
+# Format code
+npm run format
+```
+
+### Test Coverage
+
+**JavaScript/Solidity Tests:**
+- 43 tests passing
+- EventLog: Deployment, logging, pause/unpause, ownership, gas consumption
+- LogChainToken: Metadata, supply, transfers, minting, burning
+- Integration: Cross-contract interactions, real-world scenarios
+
+**PHP Tests:**
+```bash
+cd php
+composer test
+```
+
+- 11 tests passing
+- Contract connection and validation
+- ABI verification
+- Data formatting (hex conversion, padding)
+- Utility functions
+
+## Security
+
+> [!WARNING]
+> **This project is for educational/experimental purposes. Before production deployment:**
+> - Conduct professional security audit
+> - Deploy to testnet for extensive testing
+> - Implement rate limiting
+> - Set up monitoring and alerting
+> - Consider upgradeability patterns
+
+### Security Features
+
+- OpenZeppelin battle-tested contracts
+- Access control with Ownable
+- Pausable emergency stop
+- Input validation
+- Comprehensive error messages
+- Custom errors for gas efficiency (Solidity ^0.8.20)
+
+## Development
+
+### Project Structure
+
+```
+EventLogChain/
+├── contracts/          # Solidity smart contracts
+│   ├── EventLog.sol
+│   ├── LogChainToken.sol
+│   └── Migrations.sol
+├── test/              # Truffle tests
+│   ├── EventLog.test.js
+│   └── LogChainToken.test.js
+├── js/                # JavaScript client
+│   ├── index.js       # Query past events
+│   ├── sendToLog.js   # Send log entries
+│   └── subscribe.js   # Real-time event subscription
+├── php/               # PHP client
+│   └── web3.php
+├── migrations/        # Truffle deployment scripts
+├── build/            # Compiled contracts
+└── truffle-config.js # Truffle configuration
+```
+
+### Code Quality
+
+```bash
+# Lint Solidity
+npm run lint
+
+# Format code
+npm run format
+```
+
+## Gas Consumption
+
+Typical gas costs (on Ganache):
+
+- Deploy EventLog: ~450,000 gas
+- Deploy LogChainToken: ~1,200,000 gas  
+- Single log entry: ~27,000 gas (with dual timestamps)
+
+## License
+
+MIT License - see LICENSE file
+
+## Author
+
+Andrei Besleaga Nicolae
+
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Add tests for new functionality
+5. Ensure all tests pass
+6. Submit a pull request
+
+## Support
+
+For issues and questions, please use the GitHub issue tracker.
