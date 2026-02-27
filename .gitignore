@@ -2,4 +2,3 @@ secrets.json
 node_modules
 build
 vendor/
-.env
