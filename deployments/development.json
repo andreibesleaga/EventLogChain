@@ -3,13 +3,13 @@
   "deployer": "0xF6Bd884c855b7C7Afa851bB4212857A9dcc0a6fB",
   "contracts": {
     "EventLog": {
-      "address": "0x40ACe3606D905F9c3350A47315562eA2A0b69e43",
+      "address": "0xf3Ac48949038921f123AF00a2272C376A49e6CAc",
       "transactionHash": "0xF6Bd884c855b7C7Afa851bB4212857A9dcc0a6fB"
     },
     "LogChainToken": {
-      "address": "0x6d47630e5A6A88f8AA359df77d9B8c8ec9BbB139",
+      "address": "0x24d7EEC0895aa23b90427f4B227272eD92EaFf99",
       "transactionHash": "0xF6Bd884c855b7C7Afa851bB4212857A9dcc0a6fB"
     }
   },
-  "timestamp": "2026-01-02T09:19:22.700Z"
+  "timestamp": "2026-01-02T10:09:15.267Z"
 }
